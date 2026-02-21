@@ -67,6 +67,15 @@ export default function NutritionSummary({
         */}
         <div
           className="glass-panel flex flex-col rounded-2xl shadow-2xl shadow-black/60"
+          style={{
+            background: "rgba(15, 5, 5, 0.55)",
+            backdropFilter: "blur(24px) saturate(180%)",
+            WebkitBackdropFilter: "blur(24px) saturate(180%)",
+            borderTop: "1px solid rgba(255, 255, 255, 0.12)",
+            borderLeft: "1px solid rgba(255, 255, 255, 0.08)",
+            borderRight: "1px solid rgba(255, 255, 255, 0.08)",
+            transform: "translateZ(0)",
+          }}
         >
           {/* ── HEADER ── */}
           <div className="flex shrink-0 items-center justify-between px-5 py-4">

@@ -12,20 +12,7 @@
 }
 
 @layer components {
-  /* Frosted glass panel — used by NutritionSummary */
-  .glass-panel {
-    background: rgba(15, 5, 5, 0.55);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    border-left: 1px solid rgba(255, 255, 255, 0.08);
-    border-right: 1px solid rgba(255, 255, 255, 0.08);
-    /* Force GPU compositing layer — required for backdrop-filter in production */
-    transform: translateZ(0);
-    will-change: backdrop-filter;
-  }
-
-  /* Custom scrollbar inside glass panel */
+  /* Custom scrollbar inside glass panel — visual styles are applied inline on the element */
   .glass-panel ::-webkit-scrollbar {
     height: 4px;
     width: 4px;
