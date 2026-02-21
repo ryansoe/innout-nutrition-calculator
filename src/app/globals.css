@@ -1,1 +1,87 @@
 @import "tailwindcss";
+
+@theme {
+  --color-brand-red: #e8282b;
+  --color-brand-red-dark: #b91c1c;
+}
+
+@layer utilities {
+  .font-lusitana {
+    font-family: var(--font-lusitana), Georgia, serif;
+  }
+}
+
+/* Frosted glass panel — used by NutritionSummary */
+.glass-panel {
+  background: rgba(15, 5, 5, 0.55);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Custom scrollbar inside glass panel */
+.glass-panel ::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+.glass-panel ::-webkit-scrollbar-track {
+  background: transparent;
+}
+.glass-panel ::-webkit-scrollbar-thumb {
+  background: rgba(232, 40, 43, 0.5);
+  border-radius: 2px;
+}
+
+/* Red gradient button */
+.btn-red-gradient {
+  background: linear-gradient(135deg, #e8282b 0%, #b91c1c 100%);
+}
+.btn-red-gradient:hover {
+  background: linear-gradient(135deg, #f03033 0%, #c91f1f 100%);
+}
+
+/* Card hover lift + red border glow */
+.card-glow {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.card-glow:hover {
+  box-shadow: 0 0 0 1px rgba(232, 40, 43, 0.5),
+              0 8px 40px rgba(232, 40, 43, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Hero background radial glow (pseudo-element) */
+.hero-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 40%,
+    rgba(232, 40, 43, 0.18) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* Gradient text fill — white to red */
+.text-gradient-red {
+  background: linear-gradient(135deg, #ffffff 0%, #fca5a5 50%, #ef4444 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Macro pills */
+.macro-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}

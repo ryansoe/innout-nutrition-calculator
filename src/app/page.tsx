@@ -15,6 +15,12 @@ export default function Home() {
     return Array.from(selectedMap.values());
   }, [selectedMap]);
 
+  const countMap = React.useMemo(() => {
+    const map = new Map<string, number>();
+    selectedMap.forEach((val, key) => map.set(key, val.count));
+    return map;
+  }, [selectedMap]);
+
   const increase = (item: PresetFoodItem) => {
     setSelectedMap((prev) => {
       const next = new Map(prev);
@@ -41,42 +47,65 @@ export default function Home() {
 
   const reset = () => setSelectedMap(new Map());
 
+  const totalItems = items.reduce((sum, i) => sum + i.count, 0);
+
   return (
-    <div className="container mx-auto px-4">
-      <section className="relative py-16 sm:py-20 md:py-24">
-        <div className="mx-auto max-w-3xl text-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 text-red-600">
+    <div className="relative">
+      {/* ── HERO ── */}
+      <section className="hero-glow relative overflow-hidden px-4 py-20 sm:py-28 md:py-36">
+        <div className="relative z-10 mx-auto max-w-4xl text-center">
+          {/* Eyebrow */}
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-zinc-400">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-red animate-pulse" />
             In-N-Out Nutrition Calculator
+          </div>
+
+          {/* Headline */}
+          <h1 className="text-gradient-red mb-6 font-lusitana text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
+            Track Your Macros,
+            <br />
+            <span className="text-white">Animal-Style.</span>
           </h1>
-          <p className="text-base sm:text-lg text-gray-600">
-            Quickly explore In-N-Out menu nutrition. Add items to your tray to
-            see live totals for calories, macros, sodium and more. Use the
-            summary at the bottom to adjust quantities or reset.
+
+          {/* Subheading */}
+          <p className="mx-auto mb-10 max-w-xl text-base text-zinc-400 sm:text-lg">
+            Build your In-N-Out order and see live calories, macros, sodium,
+            and more. Adjust quantities in the tray at the bottom.
           </p>
+
         </div>
       </section>
 
-      <h2 className="text-2xl font-bold mb-4">Main Dishes</h2>
-      <FoodList onAdd={increase} />
+      {/* ── MENU SECTION ── */}
+      <section className="px-4 pb-40">
+        <div className="mx-auto max-w-7xl">
+          {/* Section header */}
+          <div className="mb-8 flex items-end justify-between">
+            <div>
+              <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-brand-red">
+                Full Menu
+              </p>
+              <h2 className="font-lusitana text-2xl font-bold text-white sm:text-3xl">
+                Main Dishes &amp; Drinks
+              </h2>
+            </div>
+            {totalItems > 0 && (
+              <div className="rounded-full bg-brand-red px-3 py-1 text-sm font-bold text-white">
+                {totalItems} item{totalItems !== 1 ? "s" : ""} in tray
+              </div>
+            )}
+          </div>
+
+          <FoodList onAdd={increase} countMap={countMap} />
+        </div>
+      </section>
+
       <NutritionSummary
         items={items}
         onIncrease={increase}
         onDecrease={decrease}
         onReset={reset}
       />
-
-      <p className="text-sm text-gray-500 mt-4">
-        All information can be found in the{" "}
-        <a
-          href="https://www.in-n-out.com/menu/nutrition-info"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-red-600 hover:underline"
-        >
-          In-N-Out Nutrition Information
-        </a>
-        .
-      </p>
     </div>
   );
 }
